@@ -2,14 +2,14 @@ package riderslist
 
 // RidersEntryRow represents a row in the entry list of riders for a certain event.
 type RidersEntryRow struct {
-	flag, countryCode, countryName string
+	Flag, CountryCode, CountryName string
 	// horse rider - set of horses
-	pairs map[string][]string
+	Pairs map[string][]string
 }
 
 // EventEntryRow represents a row in the minified event table.
 type EventEntryRow struct {
-	date, name, location, eventURL, entryListURL string
+	Date, Name, Location, EventURL, EntryListURL string
 }
 
 // EventInfo represents the complete information of an event.

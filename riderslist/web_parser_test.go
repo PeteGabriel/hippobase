@@ -5,10 +5,11 @@ import (
 	"testing"
 )
 
-// test Parse
 func TestParse(t *testing.T) {
-	// call Parse
-	Parse()
+	parsedEvents := Parse()
+	if len(parsedEvents) == 0 {
+		t.Errorf("Expected eventInfo to be greater than 0")
+	}
 }
 
 func TestScrap_ListOfEventsBiggerThanZero(t *testing.T) {
@@ -46,20 +47,20 @@ func assertEventsList(t *testing.T, events map[string][]EventEntryRow) {
 		}
 
 		for _, v := range value {
-			if len(v.date) == 0 {
-				t.Errorf("Expected date to be greater than 0. Got '%v'", v.date)
+			if len(v.Date) == 0 {
+				t.Errorf("Expected date to be greater than 0. Got '%v'", v.Date)
 			}
-			if len(v.name) == 0 {
-				t.Errorf("Expected name to be greater than 0. Got '%v'", v.name)
+			if len(v.Name) == 0 {
+				t.Errorf("Expected name to be greater than 0. Got '%v'", v.Name)
 			}
-			if len(v.location) == 0 {
-				t.Errorf("Expected location to be greater than 0. Got '%v'", v.location)
+			if len(v.Location) == 0 {
+				t.Errorf("Expected location to be greater than 0. Got '%v'", v.Location)
 			}
-			if len(v.eventURL) == 0 {
-				t.Errorf("Expected eventURL to be greater than 0. Got '%v'", v.eventURL)
+			if len(v.EventURL) == 0 {
+				t.Errorf("Expected eventURL to be greater than 0. Got '%v'", v.EventURL)
 			}
-			if len(v.entryListURL) == 0 && key != "Upcoming" { // entryListURL is optional for upcoming events
-				t.Errorf("Expected entryListURL to be greater than 0. Got '%v'", v.entryListURL)
+			if len(v.EntryListURL) == 0 && key != "Upcoming" { // entryListURL is optional for upcoming events
+				t.Errorf("Expected entryListURL to be greater than 0. Got '%v'", v.EntryListURL)
 			}
 		}
 	}
