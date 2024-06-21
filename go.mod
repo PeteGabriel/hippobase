@@ -1,4 +1,4 @@
-module github.com/petegabriel/equestrian-events-riders-list
+module github.com/petegabriel/equestrian_events_riders_list
 
 go 1.22.3
 
