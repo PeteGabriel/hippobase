@@ -39,7 +39,7 @@ func assertEventsList(t *testing.T, events map[string][]EventEntryRow) {
 		t.Errorf("Expected events to be greater than 0")
 	}
 
-	ks := []string{"Upcoming", "Recent"}
+	ks := []string{"Upcoming", "Recent", "Now"}
 
 	for key, value := range events {
 		if !slices.Contains(ks, key) {
