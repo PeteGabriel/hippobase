@@ -1,4 +1,4 @@
-package riderslist
+package equestrian_events_riders_list
 
 // RidersEntryRow represents a row in the entry list of riders for a certain event.
 type RidersEntryRow struct {

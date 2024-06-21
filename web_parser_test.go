@@ -1,4 +1,4 @@
-package riderslist
+package equestrian_events_riders_list
 
 import (
 	"slices"
