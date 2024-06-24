@@ -16,8 +16,7 @@ const (
 // RelatedDateEventsTable group events by relative date. e.g. Upcoming, Recent
 type RelatedDateEventsTable map[string][]EventEntryRow
 
-// Parse is a function that
-// retrieve the final list of riders and their horses.
+// Parse retrieves the final list of riders and their horses.
 func Parse() []*EquestrianCompetition {
 
 	//call external API
@@ -29,8 +28,7 @@ func Parse() []*EquestrianCompetition {
 	return GetEntryLists(eventsTable)
 }
 
-// scrapEventsTable is a function that
-// retrieve the events from the table present in first main URL.
+// scrapEventsTable retrieves the events from the table present in the main URL.
 func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 	c := colly.NewCollector()
 	events = make(RelatedDateEventsTable)
@@ -57,7 +55,6 @@ func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 									// both contain the same html properties, but they always follow the same order.
 									// just assign content to the second if the first is not empty
 
-									// TODO in one of these we have to append the path where only CSIO riders are requested
 									if entryRow.EventURL == "" {
 										entryRow.EventURL = elem.DOM.Nodes[0].FirstChild.Attr[0].Val
 									} else if entryRow.EntryListURL == "" {
