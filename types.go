@@ -31,5 +31,5 @@ type EventInfo struct {
 // Is composed of different blocks which represent different categories inside the same competition.
 type EquestrianCompetition struct {
 	MainTitle string
-	events    []*EventInfo
+	Events    []*EventInfo
 }

@@ -28,7 +28,7 @@ func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
 			}
 
 		}
-		equestrianCompetition.events = parsedEvents
+		equestrianCompetition.Events = parsedEvents
 		competitions = append(competitions, equestrianCompetition)
 	}
 
@@ -79,7 +79,7 @@ func parseCompetition(comp *EquestrianCompetition, eventURL string) ([]*EventInf
 			eventInfo.TotalHorses = horses
 		})
 
-		comp.events = events
+		comp.Events = events
 	})
 
 	err := c.Visit(eventURL)
