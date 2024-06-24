@@ -18,7 +18,7 @@ type RelatedDateEventsTable map[string][]EventEntryRow
 
 // Parse is a function that
 // retrieve the final list of riders and their horses.
-func Parse() []EventInfo {
+func Parse() []*EquestrianCompetition {
 
 	//call external API
 	eventsTable, err := scrapEventsTable(EquinisURL)
@@ -26,8 +26,7 @@ func Parse() []EventInfo {
 		panic(err)
 	}
 
-	parsedEvents := GetEntryLists(eventsTable)
-	return parsedEvents
+	return GetEntryLists(eventsTable)
 }
 
 // scrapEventsTable is a function that
@@ -57,6 +56,8 @@ func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 								if elem.DOM.Nodes[0].FirstChild.Attr[1].Val == "EventPage" {
 									// both contain the same html properties, but they always follow the same order.
 									// just assign content to the second if the first is not empty
+
+									// TODO in one of these we have to append the path where only CSIO riders are requested
 									if entryRow.EventURL == "" {
 										entryRow.EventURL = elem.DOM.Nodes[0].FirstChild.Attr[0].Val
 									} else if entryRow.EntryListURL == "" {
