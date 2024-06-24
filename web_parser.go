@@ -57,8 +57,16 @@ func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 
 									if entryRow.EventURL == "" {
 										entryRow.EventURL = elem.DOM.Nodes[0].FirstChild.Attr[0].Val
+										//force https
+										if !strings.HasPrefix(entryRow.EventURL, "https") {
+											entryRow.EventURL = strings.Replace(entryRow.EventURL, "http", "https", 1)
+										}
 									} else if entryRow.EntryListURL == "" {
 										entryRow.EntryListURL = elem.DOM.Nodes[0].FirstChild.Attr[0].Val
+										//force https
+										if !strings.HasPrefix(entryRow.EntryListURL, "https") {
+											entryRow.EntryListURL = strings.Replace(entryRow.EntryListURL, "http", "https", 1)
+										}
 									}
 								}
 							}
