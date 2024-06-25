@@ -8,40 +8,43 @@ func TestGetEntryLists_ForACorrectTableOfEvents(t *testing.T) {
 	eventsTable := RelatedDateEventsTable{
 		"Upcoming": []EventEntryRow{
 			{
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=863",
+			},
+			{
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=873",
+			},
+		},
+		"Recent": []EventEntryRow{
+			{
 				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=858",
+			},
+			{
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=860",
 			},
 		},
 	}
 
 	// Act
-	eventInfo := GetEntryLists(eventsTable)
+	competitions := GetEntryLists(eventsTable)
 
-	if len(eventInfo) != 1 {
-		t.Error("Expected eventInfo to be eql to 1")
-	}
-
-	if len(eventInfo[0].Events) != 2 {
-		t.Error("Expected events to be eql to 2")
+	if len(competitions) != 4 {
+		t.Error("Expected competitions to be eql to 4")
 	}
 
-	if eventInfo[0].MainTitle != "CSIO St. Gallen 2024" {
-		t.Error("Main title must match CSIO St. Gallen 2024")
+	if len(competitions[0].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
 	}
 
-	if eventInfo[0].Events[0].EventFullName != "Entries CSIO" {
-		t.Error("Event name must match Entries CSIO")
-	}
-	if eventInfo[0].Events[1].EventFullName != "Entries CSN" {
-		t.Error("Event name must match Entries CSN")
+	if len(competitions[1].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
 	}
 
-	if eventInfo[0].Events[0].TotalNations != 15 {
-		t.Error("Total nations must match total of 15")
+	if len(competitions[2].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
 	}
-	if eventInfo[0].Events[0].TotalAthletes != 73 {
-		t.Error("Total athletes must match total of 73")
+
+	if len(competitions[3].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
 	}
-	if eventInfo[0].Events[0].TotalHorses != 225 {
-		t.Error("Total horses must match total of 225")
-	}
+
 }

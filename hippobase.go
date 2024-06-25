@@ -12,10 +12,9 @@ func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
 	var competitions []*EquestrianCompetition
 
 	for _, v := range events {
-		equestrianCompetition := &EquestrianCompetition{}
-		parsedEvents := make([]*EventInfo, 0)
 		for _, event := range v {
-
+			equestrianCompetition := &EquestrianCompetition{}
+			var parsedEvents []*EventInfo
 			if event.EntryListURL == "" {
 				continue
 			}
@@ -24,13 +23,11 @@ func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
 			if err != nil {
 				panic(err)
 			}
-			for _, evt := range e {
-				parsedEvents = append(parsedEvents, evt)
-			}
+			parsedEvents = append(parsedEvents, e...)
 
+			equestrianCompetition.Events = parsedEvents
+			competitions = append(competitions, equestrianCompetition)
 		}
-		equestrianCompetition.Events = parsedEvents
-		competitions = append(competitions, equestrianCompetition)
 	}
 
 	return competitions

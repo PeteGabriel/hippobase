@@ -46,6 +46,10 @@ func assertEventsList(t *testing.T, events map[string][]EventEntryRow) {
 			t.Errorf("Expected key to be in %v. Got '%v'", ks, key)
 		}
 
+		if len(events[key]) == 0 {
+			t.Errorf("Expected events[%v] to be greater than 0", key)
+		}
+
 		for _, v := range value {
 			if len(v.Date) == 0 {
 				t.Errorf("Expected date to be greater than 0. Got '%v'", v.Date)
