@@ -5,6 +5,7 @@ import (
 	"github.com/gocolly/colly"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
@@ -39,6 +40,7 @@ func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
 func parseCompetition(comp *EquestrianCompetition, eventURL string) ([]*EventInfo, error) {
 	events := make([]*EventInfo, 0)
 	c := colly.NewCollector()
+	c.SetRequestTimeout(time.Minute * 3)
 
 	//get title for the entire competition
 	c.OnHTML(".EventTitle", func(e *colly.HTMLElement) {
