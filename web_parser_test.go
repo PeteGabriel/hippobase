@@ -57,9 +57,6 @@ func assertEventsList(t *testing.T, events map[string][]EventEntryRow) {
 			if len(v.Name) == 0 {
 				t.Errorf("Expected name to be greater than 0. Got '%v'", v.Name)
 			}
-			if len(v.Location) == 0 {
-				t.Errorf("Expected location to be greater than 0. Got '%v'", v.Location)
-			}
 			if len(v.EventURL) == 0 {
 				t.Errorf("Expected eventURL to be greater than 0. Got '%v'", v.EventURL)
 			}

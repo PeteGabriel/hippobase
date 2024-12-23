@@ -8,10 +8,16 @@ import (
 	"time"
 )
 
+// GetEntryLists returns a list of competitions with their respective events and competitors.
+// It receives a map that represents the result of the scraping of the events table.
+// Map has keys "Upcoming", "Recent" and "Now" and each key has a list of events. These keys classify the events by
+// date. Each entry might have a URL that will be used to scrap too. This will eventually return a list of competitions
+// and their events.
 func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
 	var competitions []*EquestrianCompetition
 
 	for _, v := range events {
+
 		for _, event := range v {
 			equestrianCompetition := &EquestrianCompetition{}
 			var parsedEvents []*EventInfo
@@ -28,6 +34,7 @@ func GetEntryLists(events RelatedDateEventsTable) []*EquestrianCompetition {
 			equestrianCompetition.Events = parsedEvents
 			competitions = append(competitions, equestrianCompetition)
 		}
+
 	}
 
 	return competitions
@@ -85,20 +92,20 @@ func parseCompetition(comp *EquestrianCompetition, eventURL string) ([]*EventInf
 	return events, err
 }
 
-func parseEntryList(e *colly.HTMLElement) ([]RidersEntryRow, error) {
-	entryList := make([]RidersEntryRow, 0)
+func parseEntryList(e *colly.HTMLElement) ([]*RidersEntryRow, error) {
+	entryList := make([]*RidersEntryRow, 0)
 
 	e.ForEach(".CountryBlock", func(i int, row *colly.HTMLElement) {
-		riderHorse := RidersEntryRow{}
+		riderHorse := &RidersEntryRow{}
 		row.DOM.Find(".CountryRow").Each(func(i int, selection *goquery.Selection) {
-			parseCountryRow(selection, &riderHorse)
+			parseCountryRow(selection, riderHorse)
 		})
 
 		row.DOM.Find(".CompetitorRow").Each(func(i int, selection *goquery.Selection) {
 			if selection.Nodes[0].Attr[0].Val == "CompetitorRow SeparatorRow" { // ignore separation row
 				return
 			}
-			parseCompetitorRow(selection, &riderHorse)
+			parseCompetitorRow(selection, riderHorse)
 			entryList = append(entryList, riderHorse)
 		})
 	})

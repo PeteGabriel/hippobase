@@ -78,9 +78,17 @@ func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 				tmp := strings.TrimSpace(e.Text)
 				evt := strings.Split(tmp, "\n\t")
 
-				entryRow.Date = strings.TrimSpace(evt[0])
-				entryRow.Name = strings.TrimSpace(evt[1])
-				entryRow.Location = strings.TrimSpace(evt[2])
+				switch len(evt) {
+				case 1:
+					entryRow.Date = strings.TrimSpace(evt[0])
+				case 2:
+					entryRow.Date = strings.TrimSpace(evt[0])
+					entryRow.Name = strings.TrimSpace(evt[1])
+				case 3:
+					entryRow.Date = strings.TrimSpace(evt[0])
+					entryRow.Name = strings.TrimSpace(evt[1])
+					entryRow.Location = strings.TrimSpace(evt[2])
+				}
 				events[key] = append(events[key], entryRow)
 			}
 		})

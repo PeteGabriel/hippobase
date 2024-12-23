@@ -19,12 +19,12 @@ type EventEntryRow struct {
 // EventInfo represents the complete information of an event.
 // It contains the event name, the date of creation and the entry list of competitors.
 type EventInfo struct {
-	CreatedAt     string           `json:"created_at"`
-	EventFullName string           `json:"event_name"`
-	Competitors   []RidersEntryRow `json:"competitors,omitempty"`
-	TotalNations  int              `json:"total_nations"`
-	TotalAthletes int              `json:"total_athletes"`
-	TotalHorses   int              `json:"total_horses"`
+	CreatedAt     string            `json:"created_at"`
+	EventFullName string            `json:"event_name"`
+	Competitors   []*RidersEntryRow `json:"competitors,omitempty"`
+	TotalNations  int               `json:"total_nations"`
+	TotalAthletes int               `json:"total_athletes"`
+	TotalHorses   int               `json:"total_horses"`
 }
 
 // EquestrianCompetition represents a competition in the equestrian world.
