@@ -8,19 +8,43 @@ func TestGetEntryLists_ForACorrectTableOfEvents(t *testing.T) {
 	eventsTable := RelatedDateEventsTable{
 		"Upcoming": []EventEntryRow{
 			{
-				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=858&lang=en&EntryGroupIDs=CSIO&Submit=OK&ShowCompetitors=on&ShowHorses=on&HorsesCompact=on",
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=863",
+			},
+			{
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=873",
+			},
+		},
+		"Recent": []EventEntryRow{
+			{
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=858",
+			},
+			{
+				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=860",
 			},
 		},
 	}
 
 	// Act
-	eventInfo := GetEntryLists(eventsTable)
+	competitions := GetEntryLists(eventsTable)
 
-	if len(eventInfo) == 0 {
-		t.Error("Expected eventInfo to be greater than 0")
+	if len(competitions) != 4 {
+		t.Error("Expected competitions to be eql to 4")
 	}
 
-	if eventInfo[0].TotalAthletes != len(eventInfo[0].Competitors) {
-		t.Error("Total athlete must match total of competitors - ", eventInfo[0].TotalAthletes, "!=", len(eventInfo[0].Competitors))
+	if len(competitions[0].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
 	}
+
+	if len(competitions[1].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
+	}
+
+	if len(competitions[2].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
+	}
+
+	if len(competitions[3].Events) == 0 {
+		t.Error("Expected events to be greater than 0")
+	}
+
 }

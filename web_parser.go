@@ -16,9 +16,8 @@ const (
 // RelatedDateEventsTable group events by relative date. e.g. Upcoming, Recent
 type RelatedDateEventsTable map[string][]EventEntryRow
 
-// Parse is a function that
-// retrieve the final list of riders and their horses.
-func Parse() []EventInfo {
+// Parse retrieves the final list of riders and their horses.
+func Parse() []*EquestrianCompetition {
 
 	//call external API
 	eventsTable, err := scrapEventsTable(EquinisURL)
@@ -26,12 +25,10 @@ func Parse() []EventInfo {
 		panic(err)
 	}
 
-	parsedEvents := GetEntryLists(eventsTable)
-	return parsedEvents
+	return GetEntryLists(eventsTable)
 }
 
-// scrapEventsTable is a function that
-// retrieve the events from the table present in first main URL.
+// scrapEventsTable retrieves the events from the table present in the main URL.
 func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 	c := colly.NewCollector()
 	events = make(RelatedDateEventsTable)
@@ -57,10 +54,19 @@ func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 								if elem.DOM.Nodes[0].FirstChild.Attr[1].Val == "EventPage" {
 									// both contain the same html properties, but they always follow the same order.
 									// just assign content to the second if the first is not empty
+
 									if entryRow.EventURL == "" {
 										entryRow.EventURL = elem.DOM.Nodes[0].FirstChild.Attr[0].Val
+										//force https
+										if !strings.HasPrefix(entryRow.EventURL, "https") {
+											entryRow.EventURL = strings.Replace(entryRow.EventURL, "http", "https", 1)
+										}
 									} else if entryRow.EntryListURL == "" {
 										entryRow.EntryListURL = elem.DOM.Nodes[0].FirstChild.Attr[0].Val
+										//force https
+										if !strings.HasPrefix(entryRow.EntryListURL, "https") {
+											entryRow.EntryListURL = strings.Replace(entryRow.EntryListURL, "http", "https", 1)
+										}
 									}
 								}
 							}
@@ -72,9 +78,17 @@ func scrapEventsTable(URL string) (events RelatedDateEventsTable, err error) {
 				tmp := strings.TrimSpace(e.Text)
 				evt := strings.Split(tmp, "\n\t")
 
-				entryRow.Date = strings.TrimSpace(evt[0])
-				entryRow.Name = strings.TrimSpace(evt[1])
-				entryRow.Location = strings.TrimSpace(evt[2])
+				switch len(evt) {
+				case 1:
+					entryRow.Date = strings.TrimSpace(evt[0])
+				case 2:
+					entryRow.Date = strings.TrimSpace(evt[0])
+					entryRow.Name = strings.TrimSpace(evt[1])
+				case 3:
+					entryRow.Date = strings.TrimSpace(evt[0])
+					entryRow.Name = strings.TrimSpace(evt[1])
+					entryRow.Location = strings.TrimSpace(evt[2])
+				}
 				events[key] = append(events[key], entryRow)
 			}
 		})

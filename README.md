@@ -1,0 +1,1 @@
+[![Go](https://github.com/PeteGabriel/equestrian_events_riders_list/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/PeteGabriel/equestrian_events_riders_list/actions/workflows/go.yml)
