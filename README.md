@@ -1,4 +1,4 @@
-# Equestrian Events Riders List
+# Equestrian Events
 
 ![Build Status](https://github.com/petegabriel/equestrian_events_riders_list/actions/workflows/go.yml/badge.svg)
 ![Go Version](https://img.shields.io/badge/Go-1.23-blue)
@@ -6,13 +6,12 @@
 
 ## Description
 
-Equestrian Events Riders List is a Go-based project designed to manage and display information about riders participating in equestrian events. It leverages libraries like `goquery` and `colly` for web scraping and data processing.
+Go-based project designed to manage and display information about riders participating in equestrian events. It leverages libraries like `goquery` and `colly` for web scraping and data processing.
 
 ## Features
 
 - Efficient data scraping using `colly`.
 - HTML parsing with `goquery`.
-- Modular and extensible design.
 
 ## Installation
 
