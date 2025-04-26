@@ -6,11 +6,16 @@ import (
 )
 
 const (
-	EquinisURL                     = "https://www.equinis.com/"
-	TableClassSelector             = ".EventTable"
-	TableRowsSelector              = "tr"
+	// EquinisURL is the main URL to scrap the events table.
+	EquinisURL = "https://www.equinis.com/"
+	// TableClassSelector is the class selector for the events table.
+	TableClassSelector = ".EventTable"
+	// TableRowsSelector is the selector for the rows of the table.
+	TableRowsSelector = "tr"
+	// RelativeEventDateClassSelector is the class selector for the relative event date.
 	RelativeEventDateClassSelector = "DateSectionTitleRow"
-	EventRowClassSelector          = "EventRow"
+	// EventRowClassSelector is the class selector for the event row.
+	EventRowClassSelector = "EventRow"
 )
 
 // RelatedDateEventsTable group events by relative date. e.g. Upcoming, Recent
