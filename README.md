@@ -3,6 +3,7 @@
 ![Build Status](https://github.com/petegabriel/equestrian_events_riders_list/actions/workflows/go.yml/badge.svg)
 ![Go Version](https://img.shields.io/badge/Go-1.23-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
+![Coverage](https://codecov.io/gh/PeteGabriel/hippobase/branch/main/graph/badge.svg)
 
 ## Description
 
