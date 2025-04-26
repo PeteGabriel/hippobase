@@ -1,4 +1,4 @@
-package equestrian_events_riders_list
+package hippobase
 
 // RidersEntryRow represents a row in the entry list of riders for a certain event.
 // It contains the country code, the country name and the horses sign up for the specific rider.
@@ -30,6 +30,6 @@ type EventInfo struct {
 // EquestrianCompetition represents a competition in the equestrian world.
 // Is composed of different blocks which represent different categories inside the same competition.
 type EquestrianCompetition struct {
-	MainTitle string
-	Events    []*EventInfo
+	MainTitle string       `json:"main_title"`
+	Events    []*EventInfo `json:"events"`
 }

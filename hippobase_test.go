@@ -1,4 +1,4 @@
-package equestrian_events_riders_list
+package hippobase
 
 import "testing"
 
