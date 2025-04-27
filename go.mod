@@ -1,4 +1,4 @@
-module github.com/petegabriel/equestrian_events_riders_list
+module github.com/petegabriel/hippobase
 
 go 1.23.0
 
