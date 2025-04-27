@@ -13,8 +13,8 @@ func TestParse(t *testing.T) {
 }
 
 func TestScrap_ListOfEventsBiggerThanZero(t *testing.T) {
-	// call scrapEventsTable
-	events, err := scrapEventsTable(EquinisURL)
+	// call scrapTable
+	events, err := scrapTable(EquinisURL)
 	if err != nil {
 		t.Errorf("Expected error to be nil")
 	}
@@ -23,8 +23,8 @@ func TestScrap_ListOfEventsBiggerThanZero(t *testing.T) {
 }
 
 func TestScrap_ListOfEventsEmpty_IfNoEventsAreFound(t *testing.T) {
-	// call scrapEventsTable
-	events, err := scrapEventsTable("https://www.example.com")
+	// call scrapTable
+	events, err := scrapTable("https://www.example.com")
 	if err != nil {
 		t.Errorf("Expected error to be nil. Got %v", err)
 	}
