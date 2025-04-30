@@ -4,7 +4,6 @@ import "testing"
 
 func TestGetEntryLists_ForACorrectTableOfEvents(t *testing.T) {
 
-	// Arrange
 	eventsTable := RelatedDateEventsTable{
 		"Upcoming": []EventEntryRow{
 			{
@@ -24,7 +23,6 @@ func TestGetEntryLists_ForACorrectTableOfEvents(t *testing.T) {
 		},
 	}
 
-	// Act
 	competitions := GetEntryLists(eventsTable)
 
 	if len(competitions) != 4 {

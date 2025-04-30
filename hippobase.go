@@ -69,6 +69,20 @@ func parseCompetition(comp *EquestrianCompetition, eventURL string) ([]*EventInf
 			events = append(events, eventInfo)
 		})
 
+		e.ForEach(".CreationDate", func(i int, e *colly.HTMLElement) {
+			var eventInfo *EventInfo
+			if len(events)-1 >= i {
+				eventInfo = events[i]
+			} else {
+				eventInfo = &EventInfo{}
+			}
+
+			//format date
+			eventInfo.CreatedAt = strings.TrimSpace(e.Text)
+			eventInfo.CreatedAt = strings.Replace(eventInfo.CreatedAt, "\n\t\t\t", " ", -1)
+			events = append(events, eventInfo)
+		})
+
 		//inside content there are different blocks that represent different events held during the competition
 		e.ForEach(".EntryGroup", func(i int, e *colly.HTMLElement) {
 			eventInfo := events[i]
