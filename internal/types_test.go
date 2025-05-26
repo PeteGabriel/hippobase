@@ -10,10 +10,7 @@ func getEntry() *RidersEntryRow {
 		Flag:        "flag.png",
 		CountryCode: "USA",
 		CountryName: "United States",
-		Pairs: map[string][]string{
-			"John Doe":   {"Horse1", "Horse2"},
-			"Jane Smith": {"Horse3"},
-		},
+		Pairs:       make([]*CompetitorHorsePair, 0),
 	}
 }
 
@@ -47,13 +44,16 @@ func TestEntryRow(t *testing.T) {
 		t.Fatalf("Expected Pairs length %d, got %d", len(entry.Pairs), len(unmarshaled.Pairs))
 	}
 	for k, v := range entry.Pairs {
-		if len(unmarshaled.Pairs[k]) != len(v) {
-			t.Fatalf("Expected Pairs[%s] length %d, got %d", k, len(v), len(unmarshaled.Pairs[k]))
+
+		if len(unmarshaled.Pairs) != len(entry.Pairs) {
+			t.Fatalf("Expected Pairs[%d] length %d, got %d", k, len(entry.Pairs), len(unmarshaled.Pairs))
 		}
-		for i, horse := range v {
-			if unmarshaled.Pairs[k][i] != horse {
-				t.Fatalf("Expected Pairs[%s][%d] %s, got %s", k, i, horse, unmarshaled.Pairs[k][i])
-			}
+
+		if unmarshaled.Pairs[k].Competitor != v.Competitor {
+			t.Fatalf("Expected Pairs[%d].Competitor %s, got %s", k, v.Competitor, unmarshaled.Pairs[k].Competitor)
+		}
+		if len(unmarshaled.Pairs[k].Horses) != len(v.Horses) {
+			t.Fatalf("Expected Pairs[%d].Horses length %d, got %d", k, len(v.Horses), len(unmarshaled.Pairs[k].Horses))
 		}
 	}
 }
