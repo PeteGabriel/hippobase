@@ -1,4 +1,4 @@
-package hippobase
+package internal
 
 import (
 	"encoding/json"

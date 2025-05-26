@@ -1,48 +1,37 @@
 package hippobase
 
-import "testing"
+import (
+	"testing"
+)
 
-func TestGetEntryLists_ForACorrectTableOfEvents(t *testing.T) {
+func TestGetEvents_Success(t *testing.T) {
+	events, err := GetEvents()
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+	if len(events) == 0 {
+		t.Fatalf("Expected events to be greater than 0")
+	}
+}
 
-	eventsTable := RelatedDateEventsTable{
-		"Upcoming": []EventEntryRow{
-			{
-				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=863",
-			},
-			{
-				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=873",
-			},
-		},
-		"Recent": []EventEntryRow{
-			{
-				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=858",
-			},
-			{
-				EntryListURL: "https://www.hippobase.com/EventInfo/Entries/CompetitorHorse.aspx?EventID=860",
-			},
-		},
+func TestGetEntryLists(t *testing.T) {
+	events, err := GetEvents()
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+	url := events.FirstEntryListURL()
+	competition, err := GetEntryLists(url)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+	if competition == nil {
+		t.Fatalf("Expected competition to be not nil")
+	}
+	if len(competition.Events) == 0 {
+		t.Fatalf("Expected competitors to be greater than 0")
 	}
 
-	competitions := GetEntryLists(eventsTable)
-
-	if len(competitions) != 4 {
-		t.Error("Expected competitions to be eql to 4")
+	if competition.MainTitle == "" {
+		t.Fatalf("Expected MainTitle to be not empty")
 	}
-
-	if len(competitions[0].Events) == 0 {
-		t.Error("Expected events to be greater than 0")
-	}
-
-	if len(competitions[1].Events) == 0 {
-		t.Error("Expected events to be greater than 0")
-	}
-
-	if len(competitions[2].Events) == 0 {
-		t.Error("Expected events to be greater than 0")
-	}
-
-	if len(competitions[3].Events) == 0 {
-		t.Error("Expected events to be greater than 0")
-	}
-
 }
