@@ -13,7 +13,6 @@ type Events []EventEntryRow
 
 // ParseMainEvents ParseMainTable retrieves the final list of events from the main table.
 // It returns a slice of EventEntryRow, which contains the event details.
-// It uses the colly library to scrape the data from the specified URL.
 // The function is designed to be called from the main function or any other part of the code where event data is needed.
 func ParseMainEvents() (Events, error) {
 	return scrapMainTable(equinis)

@@ -5,12 +5,12 @@ import (
 	"testing"
 )
 
-func getEntry() *RidersEntryRow {
-	return &RidersEntryRow{
+func getEntry() RidersEntryRow {
+	return RidersEntryRow{
 		Flag:        "flag.png",
 		CountryCode: "USA",
 		CountryName: "United States",
-		Pairs:       make([]*CompetitorHorsePair, 0),
+		Pairs:       make([]CompetitorHorsePair, 0),
 	}
 }
 
@@ -99,7 +99,7 @@ func TestEventInfo(t *testing.T) {
 	event := EventInfo{
 		CreatedAt:     "2023-10-01",
 		EventFullName: "Equestrian Event",
-		Competitors: []*RidersEntryRow{
+		Competitors: []RidersEntryRow{
 			getEntry(),
 		},
 		TotalNations:  5,

@@ -13,7 +13,7 @@ func ParseEvent(entryListURL string) (*EquestrianCompetition, error) {
 
 	competition := &EquestrianCompetition{
 		MainTitle: "",
-		Events:    make([]*EventInfo, 0),
+		Events:    make([]EventInfo, 0),
 	}
 
 	c.OnHTML(".EventTitle", func(e *colly.HTMLElement) {
@@ -38,10 +38,10 @@ func parseSingleEntryGroup(competition *EquestrianCompetition) func(e *colly.HTM
 		creationDate := strings.TrimSpace(e.ChildText(".CreationDate"))
 		creationDate = strings.Replace(creationDate, "\n\t\t\t", " ", -1)
 
-		entry := &EventInfo{
+		entry := EventInfo{
 			EventFullName: entryGroupTitle,
 			CreatedAt:     creationDate,
-			Competitors:   make([]*RidersEntryRow, 0),
+			Competitors:   make([]RidersEntryRow, 0),
 		}
 
 		// Parse the entries within the group
@@ -53,11 +53,11 @@ func parseSingleEntryGroup(competition *EquestrianCompetition) func(e *colly.HTM
 			countryID = strings.Replace(countryID, "\n\t\t\t", " ", -1)
 			flag := strings.TrimSpace(row.ChildAttr("img", "src"))
 
-			riderRow := &RidersEntryRow{
+			riderRow := RidersEntryRow{
 				Flag:        flag,
 				CountryCode: countryID,
 				CountryName: countryName,
-				Pairs:       make([]*CompetitorHorsePair, 0),
+				Pairs:       make([]CompetitorHorsePair, 0),
 			}
 
 			row.ForEach(".CompetitorRow", func(i int, competitor *colly.HTMLElement) {
@@ -74,7 +74,7 @@ func parseSingleEntryGroup(competition *EquestrianCompetition) func(e *colly.HTM
 					hs = append(hs, strings.TrimSpace(h))
 				})
 
-				riderRow.Pairs = append(riderRow.Pairs, &CompetitorHorsePair{
+				riderRow.Pairs = append(riderRow.Pairs, CompetitorHorsePair{
 					Competitor: name,
 					Horses:     hs,
 				})
