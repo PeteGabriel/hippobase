@@ -23,6 +23,7 @@ type EventEntryRow struct {
 	Location,
 	EventURL,
 	EntryListURL string
+	Id int
 }
 
 // EventInfo represents the complete information of an event.

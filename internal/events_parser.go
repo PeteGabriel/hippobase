@@ -3,6 +3,7 @@ package internal
 import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly"
+	"strconv"
 	"strings"
 )
 
@@ -52,6 +53,8 @@ func scrapMainTable(url string) (Events, error) {
 					event.EventURL, _ = s.Attr("href")
 				} else {
 					event.EntryListURL, _ = s.Attr("href")
+					// grab ID from the entry list URL
+					event.Id = getIdFromEntryList(event.EntryListURL)
 				}
 			}
 		})
@@ -62,6 +65,12 @@ func scrapMainTable(url string) (Events, error) {
 	err := c.Visit(url)
 
 	return events, err
+}
+
+func getIdFromEntryList(url string) int {
+	p := strings.Split(url, "EventID=")
+	id, _ := strconv.Atoi(p[1])
+	return id
 }
 
 // names contain a lot of empty spaces and new lines.

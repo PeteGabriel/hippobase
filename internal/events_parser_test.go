@@ -31,4 +31,10 @@ func TestScrapMainTable(t *testing.T) {
 	if lastEvent.EventURL == "" {
 		t.Fatalf("Expected EventURL to be present")
 	}
+
+	if lastEvent.EventURL != "" {
+		if lastEvent.Id == 0 {
+			t.Fatalf("Expected Id to be present")
+		}
+	}
 }
